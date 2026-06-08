@@ -63,28 +63,24 @@ public class ProveedorModel {
 		try {
 			con = MySqlDBConexion.getConexion();
 
-			String sql = "" +
-					"SELECT idproveedor, razonsocial, ruc, direccion, correo, gerente, fechaCreacion FROM proveedor " + "WHERE " 
-					+ "razonsocial LIKE ? AND " +
-					"(? = '' OR ruc = ?) AND " +
-					"(? = '' OR direccion = ?) AND " +
-					"(? = '' OR correo = ?) AND " +
-					"(? = '' OR gerente = ?) AND " +
-					"(? = '9999-12-31' OR fechaCreacion <= ?)";
+			String sql =
+				    "SELECT idproveedor, razonsocial, ruc, direccion, correo, gerente, fechaCreacion FROM proveedor WHERE "
+				    + "razonsocial LIKE ? AND "
+				    + "ruc LIKE ? AND "
+				    + "direccion LIKE ? AND "
+				    + "correo LIKE ? AND "
+				    + "gerente LIKE ? AND "
+				    + "(? = '9999-12-31' OR fechaCreacion <= ?)";
 
 			ps = con.prepareStatement(sql);
 
 			ps.setString(1, "%" + razonSocial + "%");
-			ps.setString(2, ruc);
-			ps.setString(3, ruc);
-			ps.setString(4, direccion);
-			ps.setString(5, direccion);
-			ps.setString(6, correo);
-			ps.setString(7, correo);
-			ps.setString(8, gerente);
-			ps.setString(9, gerente);
-			ps.setDate(10, java.sql.Date.valueOf(fechaCreacion));
-			ps.setDate(11, java.sql.Date.valueOf(fechaCreacion));
+			ps.setString(2, "%" + ruc + "%");
+			ps.setString(3, "%" + direccion + "%");
+			ps.setString(4, "%" + correo + "%");
+			ps.setString(5, "%" + gerente + "%");
+			ps.setDate(6, java.sql.Date.valueOf(fechaCreacion));
+			ps.setDate(7, java.sql.Date.valueOf(fechaCreacion));
 			
 
 			System.out.println("SQL: " + ps);
